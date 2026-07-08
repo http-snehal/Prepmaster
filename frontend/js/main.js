@@ -79,7 +79,7 @@ function initSharedComponents() {
     document.body.classList.add('has-sidebar');
     sidebarPlaceholder.outerHTML = `
       <aside class="sidebar" id="main-sidebar">
-        <a href="${basePath}/index.html" class="logo" style="margin-bottom: var(--space-8);">
+        <a href="${basePath}/index.html" class="logo" style="margin-bottom: var(--space-4);">
           <div class="logo-icon"><i data-lucide="cpu" style="width: 14px; height: 14px;"></i></div>
           PrepMaster
         </a>
