@@ -512,6 +512,7 @@ p {
 
 .btn-primary:hover {
   background: #b8df00;
+  color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(209, 250, 2, 0.4);
 }
@@ -529,6 +530,7 @@ p {
 
 .btn-secondary:hover {
   background: #222222;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -541,6 +543,7 @@ p {
 
 .btn-outline:hover {
   background: var(--bg-primary);
+  color: #000000;
   border-color: #000000;
   box-shadow: none;
 }
@@ -1071,6 +1074,10 @@ body.has-sidebar .header .logo {
   font-weight: var(--font-extrabold);
   color: var(--text-primary);
   letter-spacing: var(--tracking-tight);
+}
+
+.logo:hover {
+  color: var(--text-primary);
 }
 
 .logo-icon {
