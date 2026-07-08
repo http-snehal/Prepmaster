@@ -1,0 +1,161 @@
+/* ============================================
+   AI Interview Prep Platform — Component Styles
+   ============================================ */
+
+/* 
+ * This file contains specific styles for individual components 
+ * that aren't global enough to be in style.css
+ */
+
+/* Feature Cards Grid (Landing Page) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+
+/* Dashboard Stat Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-10);
+  margin-bottom: var(--space-12);
+}
+
+/* Question Bank Grid */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Question Bank List View */
+.questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Question Card */
+.question-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.question-card .card-body {
+  margin-bottom: var(--space-4);
+}
+
+.question-card-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+/* Code Editor Container */
+#monaco-editor-container {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+}
+
+/* Interview Timer Widget */
+.interview-timer-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-8);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px);
+}
+
+/* Speech Recording Indicator */
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-error);
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+  animation: pulse 1.5s infinite;
+}
+
+.recording-dot {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-error);
+  border-radius: 50%;
+}
+
+/* Matchmaking Pulse Animation */
+.matchmaking-pulse {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-4xl);
+  color: white;
+  z-index: 1;
+}
+
+.matchmaking-pulse::before,
+.matchmaking-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.3);
+  z-index: -1;
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.matchmaking-pulse::after {
+  inset: -40px;
+  animation-delay: 0.5s;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Radar Chart Container */
+.radar-chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+/* Split Pane Handle (Customized) */
+.gutter {
+  background-color: var(--border-default);
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjbd5MGJCnYoOR5Gf2YgYIAAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+}

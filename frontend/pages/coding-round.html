@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Round | AI PrepMaster</title>
+  
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/components.css">
+  
+  <style>
+    body {
+      overflow: hidden; /* Prevent body scroll, layout handles internal scroll */
+    }
+    
+    .coding-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--bg-primary);
+    }
+    
+    .coding-header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-6);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-default);
+    }
+    
+    .split-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .split-pane {
+      overflow-y: auto;
+      height: 100%;
+    }
+    
+    .split-pane-left {
+      width: 40%;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border-default);
+    }
+    
+    .split-pane-right {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary);
+    }
+    
+    .split-divider {
+      width: 4px;
+      background: transparent;
+      cursor: col-resize;
+      position: relative;
+      z-index: 10;
+      margin-left: -2px;
+      margin-right: -2px;
+    }
+    
+    .split-divider:hover {
+      background: var(--accent-primary);
+    }
+    
+    .question-content {
+      padding: var(--space-6);
+    }
+    
+    .editor-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) var(--space-4);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-default);
+    }
+    
+    #monaco-editor-container {
+      flex: 1;
+      width: 100%;
+    }
+    
+    .results-panel {
+      height: 250px;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-default);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .results-header {
+      padding: var(--space-2) var(--space-4);
+      border-bottom: 1px solid var(--border-default);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+    
+    .results-content {
+      flex: 1;
+      padding: var(--space-4);
+      overflow-y: auto;
+    }
+    
+    /* Code specific styling */
+    pre, code {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    
+    .test-case {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-default);
+      margin-bottom: var(--space-2);
+    }
+    
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 4px;
+    }
+    .status-dot.pass { background: var(--color-success); box-shadow: 0 0 8px var(--color-success); }
+    .status-dot.fail { background: var(--color-error); box-shadow: 0 0 8px var(--color-error); }
+  </style>
+</head>
+<body>
+  
+  <div class="coding-layout">
+    <!-- Header -->
+    <header class="coding-header">
+      <div class="flex items-center gap-4">
+        <a href="question-bank.html" class="text-secondary hover:text-primary">
+          <i data-lucide="arrow-left" style="width:20px;height:20px;vertical-align:middle;"></i>
+        </a>
+        <div class="logo-icon" style="width: 24px; height: 24px; font-size: 10px;">AI</div>
+        <span class="font-bold">Interview Practice</span>
+      </div>
+      
+      <div class="flex gap-3">
+        <button id="run-btn" class="btn btn-secondary btn-sm">Run Code</button>
+        <button id="submit-btn" class="btn btn-primary btn-sm text-white">Submit</button>
+      </div>
+    </header>
+    
+    <!-- Main Split Workspace -->
+    <div class="split-container">
+      
+      <!-- Left: Question -->
+      <div class="split-pane split-pane-left" id="split-left">
+        <div class="question-content">
+          <div class="flex items-center gap-3 mb-4">
+            <h1 id="question-title" class="text-2xl m-0">Loading...</h1>
+          </div>
+          
+          <div class="flex items-center gap-3 mb-6">
+            <span id="question-badge" class="badge">--</span>
+            <span id="question-category" class="text-sm text-secondary">--</span>
+          </div>
+          
+          <div id="question-tags" class="question-tags mb-6">
+            <!-- Tags -->
+          </div>
+          
+          <div id="question-desc" class="p mb-6" style="line-height: 1.6;">
+            <!-- Description -->
+          </div>
+          
+          <div id="question-examples" class="mb-6">
+            <!-- Examples -->
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-sm text-secondary uppercase tracking-wider mb-2">Constraints:</h3>
+            <div id="question-constraints">
+              <!-- Constraints -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="split-divider" id="split-divider"></div>
+      
+      <!-- Right: Editor & Results -->
+      <div class="split-pane split-pane-right" id="split-right">
+        
+        <!-- Editor Toolbar -->
+        <div class="editor-toolbar">
+          <select id="language-select" class="form-select text-sm" style="width: auto; padding: 4px 32px 4px 12px;">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+          </select>
+          
+          <button id="reset-btn" class="btn btn-ghost btn-icon" title="Reset to starter code">
+            <i data-lucide="rotate-ccw" style="width:16px;height:16px;vertical-align:middle;"></i>
+          </button>
+        </div>
+        
+        <!-- Monaco Editor Container -->
+        <div id="monaco-editor-container"></div>
+        
+        <!-- Results Panel -->
+        <div class="results-panel">
+          <div class="results-header">Test Results</div>
+          <div class="results-content" id="test-results">
+            <div class="text-secondary text-sm flex items-center justify-center h-full">
+              Run your code to see results here.
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Shared JS -->
+  <script src="../js/main.js"></script>
+  <!-- Page Specific JS -->
+  <script type="module" src="../js/coding-round.js"></script>
+</body>
+</html>

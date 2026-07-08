@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peer Practice | AI PrepMaster</title>
+  
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/components.css">
+  
+  <style>
+    body {
+      overflow: hidden;
+    }
+    
+    .peer-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--bg-primary);
+    }
+    
+    .peer-header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-6);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-default);
+    }
+    
+    .workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .video-sidebar {
+      width: 320px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-default);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #000;
+      border-bottom: 1px solid var(--border-default);
+      overflow: hidden;
+    }
+    
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-label {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background: rgba(0,0,0,0.6);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      color: white;
+    }
+    
+    .controls {
+      padding: var(--space-4);
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+      border-bottom: 1px solid var(--border-default);
+    }
+    
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .chat-input-area {
+      padding: var(--space-4);
+      border-top: 1px solid var(--border-default);
+      background: var(--bg-primary);
+    }
+    
+    .main-editor-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    .waiting-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Simulate monaco wrapper for peer room */
+    .mock-editor {
+      flex: 1;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 20px;
+      font-size: 14px;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="peer-layout">
+    <!-- Header -->
+    <header class="peer-header">
+      <div class="flex items-center gap-4">
+        <div class="logo-icon" style="width: 24px; height: 24px; font-size: 10px;">AI</div>
+        <span class="font-bold">Peer Practice Room</span>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <span class="badge badge-success">
+          <span class="w-2 h-2 rounded-full bg-success mr-2"></span> Connection Stable
+        </span>
+        <button id="end-call" class="btn btn-danger btn-sm">End Session</button>
+      </div>
+    </header>
+    
+    <!-- Workspace -->
+    <div class="workspace">
+      
+      <!-- Video & Chat Sidebar -->
+      <div class="video-sidebar">
+        <!-- Peer Video -->
+        <div class="video-container">
+          <div class="flex items-center justify-center h-full w-full bg-tertiary">
+            <div class="text-center text-secondary">
+              <div class="mb-2 text-3xl"><i data-lucide="user" style="width:1em;height:1em;vertical-align:middle;"></i></div>
+              <p>Waiting for peer...</p>
+            </div>
+          </div>
+          <div class="video-label">Peer (Connecting...)</div>
+        </div>
+        
+        <!-- Local Video -->
+        <div class="video-container">
+          <video id="local-video" autoplay muted playsinline></video>
+          <div class="video-label">You</div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+          <button id="toggle-audio" class="btn btn-secondary btn-icon" title="Mute/Unmute">
+            <span class="icon"><i data-lucide="mic" style="width:1em;height:1em;vertical-align:middle;"></i></span>
+          </button>
+          <button id="toggle-video" class="btn btn-secondary btn-icon" title="Start/Stop Video">
+            <span class="icon"><i data-lucide="camera" style="width:1em;height:1em;vertical-align:middle;"></i></span>
+          </button>
+        </div>
+        
+        <!-- Chat -->
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <div class="text-center text-xs text-muted mb-4">Chat history is not saved.</div>
+            <!-- Messages injected here -->
+          </div>
+          <div class="chat-input-area">
+            <form id="chat-form" class="flex gap-2">
+              <input type="text" id="chat-input" class="form-input text-sm" placeholder="Type a message..." style="padding: 6px 12px; height: auto;">
+              <button type="submit" class="btn btn-primary btn-sm" style="padding: 0 12px;">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Shared Editor Area -->
+      <div class="main-editor-area">
+        
+        <!-- Waiting Overlay -->
+        <div id="waiting-overlay" class="waiting-overlay">
+          <h2 class="text-3xl mb-4">Ready to practice?</h2>
+          <p class="text-secondary mb-8 text-center max-w-md">You'll be matched with another engineer to practice technical or behavioral questions. Take turns being the interviewer and interviewee.</p>
+          <button id="connect-btn" class="btn btn-primary btn-lg">Find a Match</button>
+        </div>
+        
+        <div class="flex justify-between items-center bg-secondary p-2 border-b border-glass">
+          <div class="text-sm font-bold ml-2">Shared Workspace</div>
+          <select class="form-select text-sm" style="width: auto; padding: 2px 24px 2px 8px; min-height: unset; height: 28px;">
+            <option>JavaScript</option>
+            <option>Python</option>
+          </select>
+        </div>
+        
+        <div class="mock-editor">
+// This is a shared collaborative workspace.
+// Both you and your peer can type here simultaneously.
+
+function solution() {
+  // Write your code here
+  
+}
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Shared JS -->
+  <script src="../js/main.js"></script>
+  <!-- Page Specific JS -->
+  <script src="../js/peer-room.js"></script>
+</body>
+</html>

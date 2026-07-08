@@ -1,0 +1,334 @@
+/* ============================================================
+   Resume Upload — Component Styles
+   ============================================================ */
+
+.ru-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.ru-header__title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+}
+
+.ru-header__subtitle {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+}
+
+/* ── Upload Zone ── */
+.ru-upload {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+}
+
+.ru-upload__dropzone {
+  border: 2px dashed rgba(108, 99, 255, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4xl) var(--space-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.ru-upload__dropzone:hover,
+.ru-upload__dropzone.dragover {
+  border-color: var(--primary-start);
+  background: rgba(108, 99, 255, 0.05);
+}
+
+.ru-upload__icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+}
+
+.ru-upload__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.ru-upload__text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.ru-upload__hint {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  opacity: 0.7;
+}
+
+/* ── File Preview ── */
+.ru-file-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-md);
+}
+
+.ru-file-preview__icon {
+  font-size: 1.5rem;
+}
+
+.ru-file-preview__info {
+  flex: 1;
+}
+
+.ru-file-preview__name {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ru-file-preview__size {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* ── Progress ── */
+.ru-progress {
+  margin-top: var(--space-lg);
+}
+
+.ru-progress__text {
+  display: block;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--space-sm);
+}
+
+/* ── Results ── */
+.ru-results {
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.ru-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+}
+
+/* ── Score Card ── */
+.ru-score-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.ru-score-circle {
+  position: relative;
+  width: 120px;
+  min-width: 120px;
+}
+
+.ru-score-circle svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+
+.ru-score-circle__bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 8;
+}
+
+.ru-score-circle__progress {
+  fill: none;
+  stroke: var(--primary-start);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 314.159;
+  stroke-dashoffset: 314.159;
+  transition: stroke-dashoffset 1.5s ease;
+}
+
+.ru-score-circle__value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+.ru-score-info__title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.ru-score-info__text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.ru-score-info__detected {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+  margin-bottom: 4px;
+}
+
+.ru-score-info__label {
+  color: var(--text-muted);
+}
+
+.ru-score-info__value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ── Skills Card ── */
+.ru-skills-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.ru-skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ru-skill-tag {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(108, 99, 255, 0.1);
+  color: var(--primary-start);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+/* ── Suggestions ── */
+.ru-suggestions {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.ru-suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.ru-suggestion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+}
+
+.ru-suggestion__icon {
+  font-size: 1.2rem;
+  min-width: 28px;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.ru-suggestion__text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.ru-suggestion--good { border-left: 3px solid var(--success); }
+.ru-suggestion--improve { border-left: 3px solid var(--warning); }
+.ru-suggestion--missing { border-left: 3px solid var(--error); }
+
+/* ── Missing Keywords ── */
+.ru-missing-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.ru-missing-text {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.ru-missing-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ru-missing-tag {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 82, 82, 0.1);
+  color: var(--error);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  border: 1px dashed rgba(255, 82, 82, 0.3);
+}
+
+/* ── Suggested Roles ── */
+.ru-roles-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.ru-roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.ru-role-chip {
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  border: var(--border-light);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.ru-role-chip:hover {
+  border-color: var(--primary-start);
+  background: rgba(108, 99, 255, 0.1);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .ru-score-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

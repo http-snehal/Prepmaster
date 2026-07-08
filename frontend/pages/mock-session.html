@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview | AI PrepMaster</title>
+  
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/components.css">
+</head>
+<body>
+  
+  <!-- Header injected via main.js -->
+  <div id="header-placeholder"></div>
+
+  <main class="main-content" style="background: var(--bg-primary);">
+    <div class="container container-md" style="padding-top: var(--space-8); padding-bottom: var(--space-16);">
+      
+      <!-- Top Bar: Timer & Actions -->
+      <div class="flex justify-between items-center mb-8">
+        <a href="question-bank.html" class="btn btn-ghost btn-sm">← Back to Questions</a>
+        
+        <div class="interview-timer-widget">
+          <div class="text-sm text-secondary uppercase tracking-wider font-semibold">Time Remaining</div>
+          <div class="timer" style="font-size: var(--text-2xl);">
+            <span class="icon"><i data-lucide="clock" style="width:1em;height:1em;vertical-align:middle;"></i></span> <span id="timer-display">02:00</span>
+          </div>
+        </div>
+        
+        <button class="btn btn-outline btn-sm text-error border-error" onclick="window.location.href='question-bank.html'">End Session</button>
+      </div>
+      
+      <!-- Question Card -->
+      <div class="card card-glow mb-8" style="padding: var(--space-8);">
+        <div class="flex items-center gap-3 mb-4">
+          <span id="question-badge" class="badge">Loading...</span>
+          <span class="text-sm text-secondary">Behavioral Interview</span>
+        </div>
+        
+        <h1 id="question-title" class="text-3xl mb-4">Loading Question...</h1>
+        
+        <div class="p text-lg" id="question-desc" style="line-height: 1.8;">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+      
+      <!-- Answer Panel -->
+      <div id="answer-panel">
+        <h3 class="text-lg mb-4">Your Answer</h3>
+        <p class="text-secondary text-sm mb-4">Use the STAR method (Situation, Task, Action, Result). Aim for about 2 minutes.</p>
+        
+        <div class="form-group mb-6">
+          <textarea id="text-answer" class="form-textarea" style="min-height: 200px; font-size: var(--text-lg);" placeholder="Type your answer or use voice recording..."></textarea>
+        </div>
+        
+        <div class="flex justify-between items-center gap-4 flex-wrap">
+          <button id="record-btn" class="btn btn-secondary btn-lg flex-1" style="max-width: 300px;">
+            <span class="icon"><i data-lucide="mic" style="width:1em;height:1em;vertical-align:middle;"></i></span> Record Voice Answer
+          </button>
+          
+          <button id="submit-btn" class="btn btn-primary btn-lg flex-1" style="max-width: 300px;">
+            Submit Answer <span class="icon">→</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Loading State (Hidden by default) -->
+      <div id="loading-panel" class="card hidden text-center" style="padding: var(--space-16) var(--space-8);">
+        <div class="spinner mx-auto mb-6"></div>
+        <h3 class="mb-2">AI is analyzing your answer...</h3>
+        <p class="text-secondary">Evaluating content, structure, and delivery pacing.</p>
+      </div>
+      
+      <!-- Feedback Panel (Hidden by default) -->
+      <div id="feedback-panel" class="hidden">
+        <h2 class="text-3xl mb-6 text-gradient">Interview Feedback</h2>
+        
+        <div class="feedback-panel mb-8">
+          <div class="feedback-score">
+            <div class="text-center">
+              <div class="text-6xl font-black" id="feedback-score-value">--</div>
+              <div class="text-sm text-secondary mt-1">Overall Score</div>
+            </div>
+            
+            <div class="divider-vertical mx-4"></div>
+            
+            <div class="flex-1 grid grid-2 gap-4">
+              <div class="stat-card" style="padding: var(--space-4);">
+                <div class="text-sm text-secondary mb-1">Speaking Pace</div>
+                <div class="text-xl font-bold" id="metric-wpm">-- WPM</div>
+              </div>
+              <div class="stat-card" style="padding: var(--space-4);">
+                <div class="text-sm text-secondary mb-1">Clarity Match</div>
+                <div class="text-xl font-bold" id="metric-clarity">--%</div>
+              </div>
+            </div>
+          </div>
+          
+          <h3 class="text-lg mb-4">Detailed Analysis</h3>
+          <div id="feedback-list">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+        
+        <div class="flex gap-4">
+          <button id="retry-btn" class="btn btn-secondary btn-lg">Retry Question</button>
+          <a href="question-bank.html" class="btn btn-primary btn-lg">Next Question</a>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+
+  <!-- Shared JS -->
+  <script type="module" src="../js/main.js"></script>
+  <!-- Page Specific JS -->
+  <script type="module" src="../js/mock-session.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Question Bank | AI PrepMaster</title>
+  
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components/components.css">
+</head>
+<body>
+  
+  <!-- Header injected via main.js -->
+  <div id="header-placeholder"></div>
+
+  <div class="main-with-sidebar">
+    <!-- Sidebar injected via main.js -->
+    <div id="sidebar-placeholder"></div>
+    
+    <div class="container" style="padding-bottom: var(--space-16);">
+      
+      <div class="flex justify-between items-end mb-8 flex-wrap gap-4">
+        <div>
+          <h1 class="text-3xl mb-2">Question Bank</h1>
+          <p class="text-secondary">Master technical and behavioral questions from top companies.</p>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <div class="search-bar" style="width: 300px;">
+            <span class="search-icon"><i data-lucide="search" ></i></span>
+            <input type="text" id="search-questions" placeholder="Search questions, companies...">
+            <span class="search-shortcut">/</span>
+          </div>
+          
+          <div class="flex bg-glass border border-glass rounded-lg p-1">
+            <button id="view-grid" class="btn btn-primary btn-icon" style="border: none;">
+              <i data-lucide="layout-grid" style="width:20px;height:20px;vertical-align:middle;"></i>
+            </button>
+            <button id="view-list" class="btn btn-ghost btn-icon" style="border: none;">
+              <i data-lucide="list" style="width:20px;height:20px;vertical-align:middle;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid" style="grid-template-columns: 260px 1fr; gap: var(--space-8); align-items: start;">
+        
+        <!-- Filter Sidebar -->
+        <div class="card card-static" style="position: sticky; top: calc(var(--header-height) + var(--space-8));">
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg">Filters</h3>
+            <button id="clear-filters" class="text-xs text-accent">Clear all</button>
+          </div>
+          
+          <form id="filter-form">
+            <!-- Type Filter -->
+            <div class="mb-6">
+              <h4 class="text-sm text-muted uppercase tracking-wider mb-3">Interview Type</h4>
+              <div class="flex flex-col gap-2">
+                <label class="form-checkbox">
+                  <input type="checkbox" name="type" value="technical">
+                  <span>Technical / Coding</span>
+                </label>
+                <label class="form-checkbox">
+                  <input type="checkbox" name="type" value="behavioral">
+                  <span>Behavioral / HR</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <!-- Difficulty Filter -->
+            <div class="mb-6">
+              <h4 class="text-sm text-muted uppercase tracking-wider mb-3">Difficulty</h4>
+              <div class="flex flex-col gap-2">
+                <label class="form-checkbox">
+                  <input type="checkbox" name="difficulty" value="Easy">
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background: var(--color-success);"></span> Easy</span>
+                </label>
+                <label class="form-checkbox">
+                  <input type="checkbox" name="difficulty" value="Medium">
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background: var(--color-warning);"></span> Medium</span>
+                </label>
+                <label class="form-checkbox">
+                  <input type="checkbox" name="difficulty" value="Hard">
+                  <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full" style="background: var(--color-error);"></span> Hard</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <!-- Company Filter -->
+            <div>
+              <h4 class="text-sm text-muted uppercase tracking-wider mb-3">Company</h4>
+              <select id="filter-company" class="form-select w-full">
+                <option value="all">All Companies</option>
+                <option value="Google">Google</option>
+                <option value="Meta">Meta</option>
+                <option value="Amazon">Amazon</option>
+                <option value="Apple">Apple</option>
+                <option value="Microsoft">Microsoft</option>
+                <option value="Netflix">Netflix</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Bloomberg">Bloomberg</option>
+                <option value="Stripe">Stripe</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <div id="results-count" class="text-sm text-secondary">Showing loading...</div>
+            <select class="form-select text-sm" style="width: auto; padding-top: var(--space-2); padding-bottom: var(--space-2);">
+              <option>Sort by: Recommended</option>
+              <option>Difficulty (Low to High)</option>
+              <option>Difficulty (High to Low)</option>
+              <option>Recently Added</option>
+            </select>
+          </div>
+          
+          <!-- Questions Container -->
+          <div id="questions-container" class="questions-grid">
+            <!-- Injected by JS -->
+            <div class="skeleton skeleton-card"></div>
+            <div class="skeleton skeleton-card"></div>
+            <div class="skeleton skeleton-card"></div>
+            <div class="skeleton skeleton-card"></div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Shared JS -->
+  <script type="module" src="../js/main.js"></script>
+  <!-- Page Specific JS as module to import data -->
+  <script type="module" src="../js/question-bank.js"></script>
+</body>
+</html>
